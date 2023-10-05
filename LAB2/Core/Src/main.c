@@ -56,7 +56,47 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+const int MAX_LED = 4;
+ int index_led = 0;
+ int led_buffer [4] = {1, 2, 3, 4};
+ void update7SEG ( int index ){
+ switch ( index ){
+ case 0:
+ // Display the first 7 SEG with led_buffer [0]
+	 display7SEG(led_buffer [index]);
+	 HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,0);
+	 HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
+	 HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
+	 HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
+      break ;
+ case 1:
+ // Display the second 7 SEG with led_buffer [1]
+	 display7SEG(led_buffer [index]);
+	 HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
+	 HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,0);
+	 HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
+	 HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
+     break ;
+ case 2:
+ // Display the third 7 SEG with led_buffer [2]
+	 display7SEG(led_buffer [index]);
+	 HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
+	 HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
+	 HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,0);
+	 HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
+	 break ;
+ case 3:
+ // Display the forth 7 SEG with led_buffer [3]d;
+	 display7SEG(led_buffer [index]);
+	 HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
+	 HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
+	 HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
+	 HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,0);
+     break ;
+ default :
+ break ;
+ }
+ }
 /* USER CODE END 0 */
 
 /**
@@ -215,9 +255,65 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void display7SEG(int num)
+ {
+ switch(num)
+ {
+ case 0:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5, 0);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6,1);
+ 	break;
+ case 1:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0  |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5 |GPIO_PIN_6, 1);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1 | GPIO_PIN_2,0);
+     break;
+ case 2:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_6 |GPIO_PIN_3 |GPIO_PIN_4 , 0);
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2 |GPIO_PIN_5,1);
+ 	break;
+ case 3:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_6 |GPIO_PIN_3 |GPIO_PIN_2 , 0);
+ 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4 |GPIO_PIN_5,1);
+      break;
+ case 4:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5 |GPIO_PIN_1 |GPIO_PIN_6 |GPIO_PIN_2 , 0);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_3 |GPIO_PIN_4,1);
+ 	break;
+ case 5:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_5| GPIO_PIN_6, 0);
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1 |GPIO_PIN_4 ,1);
+ 	break;
+ case 6:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_6 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5, 0);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1,1);
+ 	break;
+ case 7:
+ 	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5 |GPIO_PIN_6, 1);
+ 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0  | GPIO_PIN_1 | GPIO_PIN_2,0);
+ 	    break;
+ case 8:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5|GPIO_PIN_6, 0);
+ 		break;
+ case 9:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_6 |GPIO_PIN_5, 0);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4,1);
+ 	break;
+ default:
+	break;
+ }
+ }
+
+int counter = 50;
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 {
-	timerRun();
+	counter --;
+	if( counter <= 0){
+	counter = 50;
+	update7SEG(index_led);
+	index_led++;
+	if(index_led >=3)
+		index_led = 0;
+	}
 }
 /* USER CODE END 4 */
 
