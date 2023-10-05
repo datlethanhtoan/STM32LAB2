@@ -310,22 +310,21 @@ void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 					display7SEG(2);
 					break;
 				case 3:
-					status	= 4;
+					status = 4;
+					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
+					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
+					HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
+					HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
+					HAL_GPIO_WritePin(DOT_GPIO_Port, DOT_Pin,0);
+					break;
+				case 4:
+					status	= 5;
 					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
 					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
 					HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,0);
 					HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
 					HAL_GPIO_WritePin(DOT_GPIO_Port, DOT_Pin,1);
 				    display7SEG(3);
-					break;
-				case 4:
-				    status = 5;
-				    HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
-				    HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
-				    HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
-				    HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
-				    HAL_GPIO_WritePin(DOT_GPIO_Port, DOT_Pin,0);
-					display7SEG(0);
 					break;
 				case 5:
 					status = 1;
