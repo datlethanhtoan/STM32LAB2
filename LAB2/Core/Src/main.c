@@ -329,7 +329,7 @@ void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 	if(index_led >=3)
 		index_led = 0;
 	}
-
+   HAL_GPIO_WritePin(DOT_GPIO_Port, DOT_Pin, 0);
 }
 /* USER CODE END 4 */
 
