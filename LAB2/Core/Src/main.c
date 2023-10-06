@@ -56,6 +56,53 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void display7SEG(int num)
+ {
+ switch(num)
+ {
+ case 0:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5, 0);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6,1);
+ 	break;
+ case 1:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0  |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5 |GPIO_PIN_6, 1);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1 | GPIO_PIN_2,0);
+     break;
+ case 2:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_6 |GPIO_PIN_3 |GPIO_PIN_4 , 0);
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2 |GPIO_PIN_5,1);
+ 	break;
+ case 3:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_6 |GPIO_PIN_3 |GPIO_PIN_2 , 0);
+ 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4 |GPIO_PIN_5,1);
+      break;
+ case 4:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5 |GPIO_PIN_1 |GPIO_PIN_6 |GPIO_PIN_2 , 0);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_3 |GPIO_PIN_4,1);
+ 	break;
+ case 5:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_5| GPIO_PIN_6, 0);
+     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1 |GPIO_PIN_4 ,1);
+ 	break;
+ case 6:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_6 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5, 0);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1,1);
+ 	break;
+ case 7:
+ 	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5 |GPIO_PIN_6, 1);
+ 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0  | GPIO_PIN_1 | GPIO_PIN_2,0);
+ 	    break;
+ case 8:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5|GPIO_PIN_6, 0);
+ 		break;
+ case 9:
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_6 |GPIO_PIN_5, 0);
+ 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4,1);
+ 	break;
+ default:
+	break;
+ }
+ }
 const int MAX_LED = 4;
  int index_led = 0;
  int led_buffer [4] = {1, 2, 3, 4};
@@ -255,53 +302,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void display7SEG(int num)
- {
- switch(num)
- {
- case 0:
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5, 0);
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6,1);
- 	break;
- case 1:
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0  |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5 |GPIO_PIN_6, 1);
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1 | GPIO_PIN_2,0);
-     break;
- case 2:
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_6 |GPIO_PIN_3 |GPIO_PIN_4 , 0);
-     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2 |GPIO_PIN_5,1);
- 	break;
- case 3:
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_6 |GPIO_PIN_3 |GPIO_PIN_2 , 0);
- 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4 |GPIO_PIN_5,1);
-      break;
- case 4:
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5 |GPIO_PIN_1 |GPIO_PIN_6 |GPIO_PIN_2 , 0);
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_3 |GPIO_PIN_4,1);
- 	break;
- case 5:
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_5| GPIO_PIN_6, 0);
-     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1 |GPIO_PIN_4 ,1);
- 	break;
- case 6:
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_6 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5, 0);
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1,1);
- 	break;
- case 7:
- 	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5 |GPIO_PIN_6, 1);
- 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0  | GPIO_PIN_1 | GPIO_PIN_2,0);
- 	    break;
- case 8:
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_4 |GPIO_PIN_5|GPIO_PIN_6, 0);
- 		break;
- case 9:
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 |GPIO_PIN_1 |GPIO_PIN_2 |GPIO_PIN_3 |GPIO_PIN_6 |GPIO_PIN_5, 0);
- 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4,1);
- 	break;
- default:
-	break;
- }
- }
+
 
 int counter = 50;
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
