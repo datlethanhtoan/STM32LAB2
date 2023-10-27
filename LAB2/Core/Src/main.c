@@ -217,7 +217,38 @@ int main(void)
   {
 	  if(timer1_flag == 1)
 	  {
-		  update7SEG (index_led);
+	   switch (index_led){
+		 case 0:
+			 display7SEG(led_buffer [index_led]);
+			 HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,0);
+			 HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
+			 HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
+			 HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
+			  break ;
+		 case 1:
+			 display7SEG(led_buffer [index_led]);
+			 HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
+			 HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,0);
+			 HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
+			 HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
+			 break ;
+		 case 2:
+			 display7SEG(led_buffer [index_led]);
+			 HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
+			 HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
+			 HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,0);
+			 HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
+			 break ;
+		 case 3:
+			 display7SEG(led_buffer [index_led]);
+			 HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
+			 HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
+			 HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
+			 HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,0);
+			 break ;
+		 default :
+			 break ;
+		 }
 		  index_led++;
 		  if(index_led >= 4)
 			  index_led = 0;
@@ -225,21 +256,45 @@ int main(void)
 	  }
 	  if(timer2_flag == 1)
 	  {
-	  second ++;
-	  if ( second >= 60) {
-	  second = 0;
-	   minute ++;
-	  }
-	  if( minute >= 60) {
-	  minute = 0;
-	  hour ++;
-	  }
-	  if( hour >=24){
-	   hour = 0;
-	   }
-	  updateClockBuffer(minute, hour);
-	  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-	  setTimer2(1000);
+		  second ++;
+		  if ( second >= 60) {
+		  second = 0;
+		   minute ++;
+		  }
+		  if( minute >= 60) {
+		  minute = 0;
+		  hour ++;
+		  }
+		  if( hour >=24){
+		   hour = 0;
+		   }
+
+		  if(hour <= 9)
+			 {
+				 led_buffer[0] = 0;
+				 led_buffer[1] = hour;
+			 }
+			 else
+			 {
+				 int temp_1 = hour /10;
+				 led_buffer[0] = temp_1;
+				 temp_1 = hour %10;
+				 led_buffer[1] = temp_1;
+			 }
+			 if(minute <= 9)
+				 {
+					 led_buffer[2] = 0;
+					 led_buffer[3] = minute;
+				 }
+			 else
+				 {
+					 int temp_2 = minute /10;
+					 led_buffer[2] = temp_2;
+					 temp_2 = minute % 10;
+					 led_buffer[3] = temp_2;
+				 }
+		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+		  setTimer2(1000);
 	  }
     /* USER CODE END WHILE */
 
