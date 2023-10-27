@@ -563,96 +563,96 @@ int main(void)
  8000478:	f000 f952 	bl	8000720 <setTimer2>
   while (1)
   {
-	  if(timer2_flag == 1)
+	  if(timer1_flag == 1)
  800047c:	4b21      	ldr	r3, [pc, #132]	; (8000504 <main+0xc0>)
  800047e:	681b      	ldr	r3, [r3, #0]
  8000480:	2b01      	cmp	r3, #1
- 8000482:	d123      	bne.n	80004cc <main+0x88>
+ 8000482:	d114      	bne.n	80004ae <main+0x6a>
+	  {
+		  update7SEG (index_led);
+ 8000484:	4b20      	ldr	r3, [pc, #128]	; (8000508 <main+0xc4>)
+ 8000486:	681b      	ldr	r3, [r3, #0]
+ 8000488:	4618      	mov	r0, r3
+ 800048a:	f7ff feed 	bl	8000268 <update7SEG>
+		  index_led++;
+ 800048e:	4b1e      	ldr	r3, [pc, #120]	; (8000508 <main+0xc4>)
+ 8000490:	681b      	ldr	r3, [r3, #0]
+ 8000492:	3301      	adds	r3, #1
+ 8000494:	4a1c      	ldr	r2, [pc, #112]	; (8000508 <main+0xc4>)
+ 8000496:	6013      	str	r3, [r2, #0]
+		  if(index_led >= 4)
+ 8000498:	4b1b      	ldr	r3, [pc, #108]	; (8000508 <main+0xc4>)
+ 800049a:	681b      	ldr	r3, [r3, #0]
+ 800049c:	2b03      	cmp	r3, #3
+ 800049e:	dd02      	ble.n	80004a6 <main+0x62>
+			  index_led = 0;
+ 80004a0:	4b19      	ldr	r3, [pc, #100]	; (8000508 <main+0xc4>)
+ 80004a2:	2200      	movs	r2, #0
+ 80004a4:	601a      	str	r2, [r3, #0]
+		  setTimer1(500);
+ 80004a6:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
+ 80004aa:	f000 f91f 	bl	80006ec <setTimer1>
+	  }
+	  if(timer2_flag == 1)
+ 80004ae:	4b17      	ldr	r3, [pc, #92]	; (800050c <main+0xc8>)
+ 80004b0:	681b      	ldr	r3, [r3, #0]
+ 80004b2:	2b01      	cmp	r3, #1
+ 80004b4:	d1e2      	bne.n	800047c <main+0x38>
 	  {
 	  second ++;
- 8000484:	687b      	ldr	r3, [r7, #4]
- 8000486:	3301      	adds	r3, #1
- 8000488:	607b      	str	r3, [r7, #4]
+ 80004b6:	687b      	ldr	r3, [r7, #4]
+ 80004b8:	3301      	adds	r3, #1
+ 80004ba:	607b      	str	r3, [r7, #4]
 	  if ( second >= 60) {
- 800048a:	687b      	ldr	r3, [r7, #4]
- 800048c:	2b3b      	cmp	r3, #59	; 0x3b
- 800048e:	dd04      	ble.n	800049a <main+0x56>
+ 80004bc:	687b      	ldr	r3, [r7, #4]
+ 80004be:	2b3b      	cmp	r3, #59	; 0x3b
+ 80004c0:	dd04      	ble.n	80004cc <main+0x88>
 	  second = 0;
- 8000490:	2300      	movs	r3, #0
- 8000492:	607b      	str	r3, [r7, #4]
+ 80004c2:	2300      	movs	r3, #0
+ 80004c4:	607b      	str	r3, [r7, #4]
 	   minute ++;
- 8000494:	68bb      	ldr	r3, [r7, #8]
- 8000496:	3301      	adds	r3, #1
- 8000498:	60bb      	str	r3, [r7, #8]
+ 80004c6:	68bb      	ldr	r3, [r7, #8]
+ 80004c8:	3301      	adds	r3, #1
+ 80004ca:	60bb      	str	r3, [r7, #8]
 	  }
 	  if( minute >= 60) {
- 800049a:	68bb      	ldr	r3, [r7, #8]
- 800049c:	2b3b      	cmp	r3, #59	; 0x3b
- 800049e:	dd04      	ble.n	80004aa <main+0x66>
+ 80004cc:	68bb      	ldr	r3, [r7, #8]
+ 80004ce:	2b3b      	cmp	r3, #59	; 0x3b
+ 80004d0:	dd04      	ble.n	80004dc <main+0x98>
 	  minute = 0;
- 80004a0:	2300      	movs	r3, #0
- 80004a2:	60bb      	str	r3, [r7, #8]
+ 80004d2:	2300      	movs	r3, #0
+ 80004d4:	60bb      	str	r3, [r7, #8]
 	  hour ++;
- 80004a4:	68fb      	ldr	r3, [r7, #12]
- 80004a6:	3301      	adds	r3, #1
- 80004a8:	60fb      	str	r3, [r7, #12]
+ 80004d6:	68fb      	ldr	r3, [r7, #12]
+ 80004d8:	3301      	adds	r3, #1
+ 80004da:	60fb      	str	r3, [r7, #12]
 	  }
 	  if( hour >=24){
- 80004aa:	68fb      	ldr	r3, [r7, #12]
- 80004ac:	2b17      	cmp	r3, #23
- 80004ae:	dd01      	ble.n	80004b4 <main+0x70>
+ 80004dc:	68fb      	ldr	r3, [r7, #12]
+ 80004de:	2b17      	cmp	r3, #23
+ 80004e0:	dd01      	ble.n	80004e6 <main+0xa2>
 	   hour = 0;
- 80004b0:	2300      	movs	r3, #0
- 80004b2:	60fb      	str	r3, [r7, #12]
+ 80004e2:	2300      	movs	r3, #0
+ 80004e4:	60fb      	str	r3, [r7, #12]
 	   }
 	  updateClockBuffer(minute, hour);
- 80004b4:	68f9      	ldr	r1, [r7, #12]
- 80004b6:	68b8      	ldr	r0, [r7, #8]
- 80004b8:	f7ff ff6c 	bl	8000394 <updateClockBuffer>
+ 80004e6:	68f9      	ldr	r1, [r7, #12]
+ 80004e8:	68b8      	ldr	r0, [r7, #8]
+ 80004ea:	f7ff ff53 	bl	8000394 <updateClockBuffer>
 	  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
- 80004bc:	2110      	movs	r1, #16
- 80004be:	4812      	ldr	r0, [pc, #72]	; (8000508 <main+0xc4>)
- 80004c0:	f000 fd2c 	bl	8000f1c <HAL_GPIO_TogglePin>
+ 80004ee:	2110      	movs	r1, #16
+ 80004f0:	4807      	ldr	r0, [pc, #28]	; (8000510 <main+0xcc>)
+ 80004f2:	f000 fd13 	bl	8000f1c <HAL_GPIO_TogglePin>
 	  setTimer2(1000);
- 80004c4:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
- 80004c8:	f000 f92a 	bl	8000720 <setTimer2>
-	  }
+ 80004f6:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
+ 80004fa:	f000 f911 	bl	8000720 <setTimer2>
 	  if(timer1_flag == 1)
- 80004cc:	4b0f      	ldr	r3, [pc, #60]	; (800050c <main+0xc8>)
- 80004ce:	681b      	ldr	r3, [r3, #0]
- 80004d0:	2b01      	cmp	r3, #1
- 80004d2:	d1d3      	bne.n	800047c <main+0x38>
-	 	  {
-	 		  update7SEG (index_led);
- 80004d4:	4b0e      	ldr	r3, [pc, #56]	; (8000510 <main+0xcc>)
- 80004d6:	681b      	ldr	r3, [r3, #0]
- 80004d8:	4618      	mov	r0, r3
- 80004da:	f7ff fec5 	bl	8000268 <update7SEG>
-	 		  index_led++;
- 80004de:	4b0c      	ldr	r3, [pc, #48]	; (8000510 <main+0xcc>)
- 80004e0:	681b      	ldr	r3, [r3, #0]
- 80004e2:	3301      	adds	r3, #1
- 80004e4:	4a0a      	ldr	r2, [pc, #40]	; (8000510 <main+0xcc>)
- 80004e6:	6013      	str	r3, [r2, #0]
-	 		  if(index_led >= 4)
- 80004e8:	4b09      	ldr	r3, [pc, #36]	; (8000510 <main+0xcc>)
- 80004ea:	681b      	ldr	r3, [r3, #0]
- 80004ec:	2b03      	cmp	r3, #3
- 80004ee:	dd02      	ble.n	80004f6 <main+0xb2>
-	 			  index_led = 0;
- 80004f0:	4b07      	ldr	r3, [pc, #28]	; (8000510 <main+0xcc>)
- 80004f2:	2200      	movs	r2, #0
- 80004f4:	601a      	str	r2, [r3, #0]
-	 		  setTimer1(500);
- 80004f6:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
- 80004fa:	f000 f8f7 	bl	80006ec <setTimer1>
-	  if(timer2_flag == 1)
  80004fe:	e7bd      	b.n	800047c <main+0x38>
  8000500:	20000050 	.word	0x20000050
- 8000504:	2000004c 	.word	0x2000004c
- 8000508:	40010800 	.word	0x40010800
- 800050c:	20000044 	.word	0x20000044
- 8000510:	2000003c 	.word	0x2000003c
+ 8000504:	20000044 	.word	0x20000044
+ 8000508:	2000003c 	.word	0x2000003c
+ 800050c:	2000004c 	.word	0x2000004c
+ 8000510:	40010800 	.word	0x40010800
 
 08000514 <SystemClock_Config>:
 /**
