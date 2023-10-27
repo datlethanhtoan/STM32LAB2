@@ -275,14 +275,15 @@ void display7SEG(int num)
  }
 
 
-int counter = 50;
+int counter_1 = 50;
  int status = 1;
+ int counter_2 = 100;
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 {
-	counter --;
-	if( counter <= 0){
-	counter = 50;
-	HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin );
+	counter_1 --;
+	counter_2--;
+	if( counter_1 <= 0){
+	counter_1 = 50;
 	switch(status)
 				{
 				case 1:
@@ -291,7 +292,6 @@ void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
 					HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
 					HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
-					HAL_GPIO_WritePin(DOT_GPIO_Port, DOT_Pin,1);
 					display7SEG(1);
 					break;
 				case 2:
@@ -300,37 +300,32 @@ void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,0);
 					HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
 					HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
-					HAL_GPIO_WritePin(DOT_GPIO_Port, DOT_Pin,1);
 					display7SEG(2);
 					break;
 				case 3:
-					status = 4;
-					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
-					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
-					HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
-					HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
-					HAL_GPIO_WritePin(DOT_GPIO_Port, DOT_Pin,0);
-					break;
-				case 4:
-					status	= 5;
+					status	= 4;
 					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
 					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
 					HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,0);
 					HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,1);
-					HAL_GPIO_WritePin(DOT_GPIO_Port, DOT_Pin,1);
 				    display7SEG(3);
 					break;
-				case 5:
+				case 4:
 					status = 1;
 					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
 					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
 					HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
 					HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin,0);
-					HAL_GPIO_WritePin(DOT_GPIO_Port, DOT_Pin,1);
 					display7SEG(0);
 				default:
 					break;
 				}
+	}
+	if(counter_2 <= 0)
+	{
+		counter_2 = 100;
+		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+		HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin );
 	}
 }
 /* USER CODE END 4 */
