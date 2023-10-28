@@ -147,31 +147,10 @@ const int MAX_LED = 4;
 
  void updateClockBuffer (int minute, int hour)
  {
-	 if(hour <= 9)
-	 {
-		 led_buffer[0] = 0;
-		 led_buffer[1] = hour;
-	 }
-	 else
-	 {
-		 int temp_1 = hour /10;
-		 led_buffer[0] = temp_1;
-		 temp_1 = hour %10;
-		 led_buffer[1] = temp_1;
-	 }
-
-	 if(minute <= 9)
-	 	 {
-	 		 led_buffer[2] = 0;
-	 		 led_buffer[3] = minute;
-	 	 }
-	 else
-	 	 {
-	 		 int temp_2 = minute /10;
-	 		 led_buffer[2] = temp_2;
-	 		 temp_2 = minute % 10;
-	 		 led_buffer[3] = temp_2;
-	 	 }
+		 led_buffer[0] = hour/10;
+		 led_buffer[1] = hour%10;
+		 led_buffer[2] = minute/10;
+		 led_buffer[3] = minute%10;
  }
 
 /* USER CODE END 0 */
