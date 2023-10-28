@@ -146,33 +146,12 @@ const int MAX_LED = 4;
  }
 
  void updateClockBuffer (int minute, int hour)
- {
-	 if(hour <= 9)
-	 {
-		 led_buffer[0] = 0;
-		 led_buffer[1] = hour;
-	 }
-	 else
-	 {
-		 int temp_1 = hour /10;
-		 led_buffer[0] = temp_1;
-		 temp_1 = hour %10;
-		 led_buffer[1] = temp_1;
-	 }
-
-	 if(minute <= 9)
-	 	 {
-	 		 led_buffer[2] = 0;
-	 		 led_buffer[3] = minute;
-	 	 }
-	 else
-	 	 {
-	 		 int temp_2 = minute /10;
-	 		 led_buffer[2] = temp_2;
-	 		 temp_2 = minute % 10;
-	 		 led_buffer[3] = temp_2;
-	 	 }
- }
+  {
+ 		 led_buffer[0] = hour/10;
+ 		 led_buffer[1] = hour%10;
+ 		 led_buffer[2] = minute/10;
+ 		 led_buffer[3] = minute%10;
+  }
 
 /* USER CODE END 0 */
 
@@ -225,21 +204,21 @@ int main(void)
 	  }
 	  if(timer2_flag == 1)
 	  {
-	  second ++;
-	  if ( second >= 60) {
-	  second = 0;
-	   minute ++;
-	  }
-	  if( minute >= 60) {
-	  minute = 0;
-	  hour ++;
-	  }
-	  if( hour >=24){
-	   hour = 0;
-	   }
-	  updateClockBuffer(minute, hour);
-	  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-	  setTimer2(1000);
+		  second ++;
+		  if ( second >= 60) {
+		  second = 0;
+		   minute ++;
+		  }
+		  if( minute >= 60) {
+		  minute = 0;
+		  hour ++;
+		  }
+		  if( hour >=24){
+		   hour = 0;
+		   }
+		  updateClockBuffer(minute, hour);
+		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+		  setTimer2(1000);
 	  }
     /* USER CODE END WHILE */
 
