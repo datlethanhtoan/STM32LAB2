@@ -84,10 +84,10 @@ void Error_Handler(void);
 #define ROW4_GPIO_Port GPIOB
 #define ROW5_Pin GPIO_PIN_13
 #define ROW5_GPIO_Port GPIOB
-#define ROW7_Pin GPIO_PIN_14
+#define ROW6_Pin GPIO_PIN_14
+#define ROW6_GPIO_Port GPIOB
+#define ROW7_Pin GPIO_PIN_15
 #define ROW7_GPIO_Port GPIOB
-#define ROW7B15_Pin GPIO_PIN_15
-#define ROW7B15_GPIO_Port GPIOB
 #define EN2_Pin GPIO_PIN_8
 #define EN2_GPIO_Port GPIOA
 #define EN3_Pin GPIO_PIN_9
